@@ -1,0 +1,185 @@
+  [1m[36m (867.7ms)[0m  [1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (668.3ms)[0m  CREATE UNIQUE INDEX `unique_schema_migrations`  ON `schema_migrations` (`version`) 
+  [1m[36mActiveRecord::SchemaMigration Load (10.1ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Migrating to CreateItems (20180806100712)
+  [1m[35m (129.3ms)[0m  CREATE TABLE `items` (`id` int(11) auto_increment PRIMARY KEY, `item_category_id` int(11), `name` varchar(255), `rate` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (44.7ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20180806100712')
+  [1m[36m (73.7ms)[0m  [1mCOMMIT[0m
+Migrating to CreateItemCategories (20180806100733)
+  [1m[35m (144.1ms)[0m  CREATE TABLE `item_categories` (`id` int(11) auto_increment PRIMARY KEY, `name` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20180806100733')
+  [1m[36m (53.8ms)[0m  [1mCOMMIT[0m
+Migrating to CreateItemTaxes (20180806100807)
+  [1m[35m (177.6ms)[0m  CREATE TABLE `item_taxes` (`id` int(11) auto_increment PRIMARY KEY, `item_id` int(11), `tax_type` varchar(255), `tax` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (23.2ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20180806100807')
+  [1m[36m (63.7ms)[0m  [1mCOMMIT[0m
+Migrating to CreateTableItem (20180806103723)
+  [1m[35m (143.9ms)[0m  CREATE TABLE `table_items` (`id` int(11) auto_increment PRIMARY KEY) ENGINE=InnoDB
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (58.0ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20180806103723')
+  [1m[36m (62.8ms)[0m  [1mCOMMIT[0m
+Migrating to CreateTableItemCategory (20180806104040)
+  [1m[35m (144.0ms)[0m  CREATE TABLE `table_item_categories` (`id` int(11) auto_increment PRIMARY KEY) ENGINE=InnoDB
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (45.1ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20180806104040')
+  [1m[36m (64.6ms)[0m  [1mCOMMIT[0m
+Migrating to Rails (20180806104628)
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.3ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+  [1m[36m (40.7ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'items_data'
+  AND fk.table_name = 'item_categories'
+[0m
+  [1m[35m (0.2ms)[0m  SHOW CREATE TABLE `item_categories`
+  [1m[36m (0.3ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'items_data'
+  AND fk.table_name = 'item_taxes'
+[0m
+  [1m[35m (0.2ms)[0m  SHOW CREATE TABLE `item_taxes`
+  [1m[36m (0.3ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'items_data'
+  AND fk.table_name = 'items'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `items`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'items_data'
+  AND fk.table_name = 'table_item_categories'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `table_item_categories`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'items_data'
+  AND fk.table_name = 'table_items'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `table_items`
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'items_data'
+  AND fk.table_name = 'item_categories'
+[0m
+  [1m[35m (0.2ms)[0m  SHOW CREATE TABLE `item_categories`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'items_data'
+  AND fk.table_name = 'item_taxes'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `item_taxes`
+  [1m[36m (0.3ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'items_data'
+  AND fk.table_name = 'items'
+[0m
+  [1m[35m (0.2ms)[0m  SHOW CREATE TABLE `items`
+  [1m[36m (0.3ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'items_data'
+  AND fk.table_name = 'table_item_categories'
+[0m
+  [1m[35m (0.2ms)[0m  SHOW CREATE TABLE `table_item_categories`
+  [1m[36m (0.3ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'items_data'
+  AND fk.table_name = 'table_items'
+[0m
+  [1m[35m (0.7ms)[0m  SHOW CREATE TABLE `table_items`
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+  [1m[36m (0.3ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'items_data'
+  AND fk.table_name = 'item_categories'
+[0m
+  [1m[35m (0.2ms)[0m  SHOW CREATE TABLE `item_categories`
+  [1m[36m (0.3ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'items_data'
+  AND fk.table_name = 'item_taxes'
+[0m
+  [1m[35m (0.2ms)[0m  SHOW CREATE TABLE `item_taxes`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'items_data'
+  AND fk.table_name = 'items'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `items`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'items_data'
+  AND fk.table_name = 'table_item_categories'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `table_item_categories`
+  [1m[36m (0.2ms)[0m  [1mSELECT fk.referenced_table_name as 'to_table'
+      ,fk.referenced_column_name as 'primary_key'
+      ,fk.column_name as 'column'
+      ,fk.constraint_name as 'name'
+FROM information_schema.key_column_usage fk
+WHERE fk.referenced_column_name is not null
+  AND fk.table_schema = 'items_data'
+  AND fk.table_name = 'table_items'
+[0m
+  [1m[35m (0.1ms)[0m  SHOW CREATE TABLE `table_items`
