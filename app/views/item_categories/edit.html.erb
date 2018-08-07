@@ -1,0 +1,13 @@
+<div width="100%">
+	<%= form_for(@item,:html => {class: 'form-horizontal'}) do  |f| %>
+		<div>
+			<label>Name:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<%= f.text_field  :name, :required => true %>
+		</div><br/>
+		<br/><br/>
+		<div>
+		<%= f.submit "Submit", class: 'btn btn-theme02'  %>
+		</div>
+                    
+	<%end%>
+</div>
