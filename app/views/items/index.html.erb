@@ -1,0 +1,38 @@
+<div align="right">
+	<a href="<%= new_item_path %>">Add Item</a>
+</div>&nbsp;&nbsp;&nbsp;
+
+<div>
+	<% if @item!= nil && @item != [] %>
+		<table border="1" width="100%">
+			<thead><tr>
+				<th>SL.NO</th>
+				<th>Item Category Name</th>
+				<th>Item Name</th>
+				<th>Rate</th>
+				<th>Action</th>
+			</tr></thead>
+			<tbody>
+				<% @item.each_with_index do |item,index| %>
+				<tr>
+				<input type="hidden" id="item_id" name="item_id" value="<%=item.id%>">
+				<td><%=index+1%></td>
+				<td><%=ItemCategory.where(id: item.item_category_id).last.name rescue nil%></td>
+				<td><%=item.name%></td>
+				<td><%=item.rate%></td>
+				<td><a href='<%= edit_item_path(item.id)%>'>Edit</a> | <%= link_to "Delete", item_path(item.id), method: :delete,data: { confirm:"Are you sure delete the item details?" } %> </td>
+				</tr>
+				<% end %>
+			</tbody>
+			</tr>
+		</table>
+	<% else %>
+		No Items available here.
+	<% end %>
+</div>
+
+<script type="text/javascript">
+
+
+</script>
+

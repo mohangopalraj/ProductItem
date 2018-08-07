@@ -1,0 +1,23 @@
+<div width="100%">
+  <%= form_for(@item,:html => {class: 'form-horizontal'}) do  |f| %>
+    <div>
+      <label>Item Category Name:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <%= select_tag "item[item_category_id]", options_for_select(ItemCategory.all.collect{ |u| [u.name, u.id]},:selected=>"item[item_category_id]" ), :prompt => "Select Item Category"  %>
+
+    </div><br/>
+    <div>
+      <label>Item Name:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <%= f.text_field  :name, :required => true %>
+    </div><br/>
+    
+    <div>
+      <label>Price Rate:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;<%= f.text_field  :rate, :required => true %>
+    </div><br/>
+
+    <div>
+    <%= f.submit "Submit", class: 'btn btn-theme02'  %>
+    </div>
+                    
+  <%end%>
+</div>

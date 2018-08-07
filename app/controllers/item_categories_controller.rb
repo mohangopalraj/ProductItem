@@ -30,6 +30,12 @@ class ItemCategoriesController < ApplicationController
     	end
 	end
 
+	def destroy
+		item = ItemCategory.find_by_id(params[:id])
+		item.destroy
+		redirect_to :action => 'index'
+	end
+
 	private
 	
 	def item_category_params
