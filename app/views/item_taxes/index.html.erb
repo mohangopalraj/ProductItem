@@ -8,15 +8,23 @@
 			<thead><tr>
 				<th>SL.NO</th>
 				<th>Item Category Name</th>
+				<th>Item Name</th>
+				<th>Item Price</th>
+				<th>Tax Type</th>
+				<th>Tax Value</th>
 				<th>Action</th>
 			</tr></thead>
 			<tbody>
-				<% @item_categories.each_with_index do |item_category,index| %>
+				<% @item_details.each_with_index do |item,index| %>
 				<tr>
-				<input type="hidden" id="item_category_id" name="item_category_id" value="<%=item_category.id%>">
+				<input type="hidden" id="item_id" name="item_id" value="<%=item.id%>">
 				<td><%=index+1%></td>
-				<td><%=item_category.name%></td>
-				<td><a href='<%= edit_item_category_path(item_category.id)%>'>Edit</a> | <%= link_to "Delete", item_categories_path(item_category.id), method: :delete,data: { confirm:"Are you sure delete the book details?" } %> </td>
+				<td><%=Item.find(item.item_id).item_category.name rescue nil%></td>
+				<td><%=Item.find(item.item_id).name rescue nil%></td>
+				<td><%=Item.find(item.item_id).rate rescue nil%></td>
+				<td><%=item.tax_type%></td>
+				<td><%=item.tax%></td>
+				<td><a href='<%= edit_item_tax_path(item.id)%>'>Edit</a> | <%= link_to "Delete", item_tax_path(item.id), method: :delete,data: { confirm:"Are you sure delete the tax details?" } %> </td>
 				</tr>
 				<% end %>
 			</tbody>
