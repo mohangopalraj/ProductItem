@@ -1,0 +1,34 @@
+<div align="right">
+	<a href="<%= new_item_tax_path %>">Add Tax</a>
+</div>&nbsp;&nbsp;&nbsp;
+
+<div>
+	<% if @item_details != nil && @item_details != [] %>
+		<table border="1" width="100%">
+			<thead><tr>
+				<th>SL.NO</th>
+				<th>Item Category Name</th>
+				<th>Action</th>
+			</tr></thead>
+			<tbody>
+				<% @item_categories.each_with_index do |item_category,index| %>
+				<tr>
+				<input type="hidden" id="item_category_id" name="item_category_id" value="<%=item_category.id%>">
+				<td><%=index+1%></td>
+				<td><%=item_category.name%></td>
+				<td><a href='<%= edit_item_category_path(item_category.id)%>'>Edit</a> | <%= link_to "Delete", item_categories_path(item_category.id), method: :delete,data: { confirm:"Are you sure delete the book details?" } %> </td>
+				</tr>
+				<% end %>
+			</tbody>
+			</tr>
+		</table>
+	<% else %>
+		No Item Taxes available here.
+	<% end %>
+</div>
+
+<script type="text/javascript">
+
+
+</script>
+

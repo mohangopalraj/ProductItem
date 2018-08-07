@@ -1,0 +1,72 @@
+<div>
+    <%= form_tag '/item_taxes', class: 'form-horizontal tax_form' do %>
+    <div>
+        <label>Item Category Name:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <%= select_tag :item_category, options_for_select(ItemCategory.all.collect{ |c| [c[:name], c[:id]]}, params[:item_category]), prompt: "Select a category", class: 'form-control tax_item_category' %>
+    </div><br/>
+    <div>
+        <label>Item Name:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <%= select_tag :item, options_for_select(@item), prompt: "Select a item", class: 'form-control tax_item' %>
+    </div><br/>
+    <div>
+        <label>Item Price:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <%= select_tag :price, options_for_select(@price), prompt: "Select a price", class: 'form-control tax_price' %>
+    </div><br/>
+
+    <%end%>
+</div>
+
+<script type="text/javascript">
+    $('.tax_item_category').change(function(){
+        var item_category_id = $(".tax_item_category").find(':selected').val();
+        $.ajax({
+          url: '/get_items',
+          data: {item_category_id: item_category_id},
+          method: 'get',
+          success: function(response){
+            $(".tax_item option").remove();
+            $(".tax_item").append("<option>Select a Item</option>")
+            for(i=0;i<response["data"].length;i++){
+              $(".tax_item").append("<option value="+response["data"][i][0]+">"+response["data"][i][1]+"</option>")
+            }
+        }
+        })
+    });
+
+    $('.tax_item').change(function(){
+        var item_id = $(".tax_item").find(':selected').val();
+        $.ajax({
+          url: '/get_items_price',
+          data: {item_id: item_id},
+          method: 'get',
+          success: function(response){
+            $(".tax_price option").remove();
+            $(".tax_price").append("<option>Select a Price</option>")
+            for(i=0;i<response["data"].length;i++){
+              $(".tax_price").append("<option value="+response["data"][i][0]+">"+response["data"][i][1]+"</option>")
+            }
+        }
+        })
+    });
+            // $('.video_assign_topic_tag_id').change(function(){
+            //     var subject_id = $(".video_assign_subject_id").find(':selected').val();
+            //     var topic_tag_id = $(".video_assign_topic_tag_id").find(':selected').val();
+            //     $.ajax({
+            //       url: '/get_topic_modules',
+            //       data: {subject_id: subject_id,topic_tag_id: topic_tag_id},
+            //       method: 'get',
+            //       success: function(response){
+            //         $(".video_assign_module option").remove();
+            //         $(".video_assign_module").append("<option>Select a topic module</option>")
+            //         for(i=0;i<response["topic_video_modules"].length;i++){
+            //           $(".video_assign_module").append("<option value="+response["topic_video_modules"][i][0]+">"+response["topic_video_modules"][i][1]+"</option>")
+            //         }
+            //     }
+            //     })
+            // });
+
+</script>
+
+
+
+    

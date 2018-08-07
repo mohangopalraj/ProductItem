@@ -56,5 +56,10 @@ Rails.application.routes.draw do
   resources :items 
   
   resources :item_categories 
+
+  resources :item_taxes
+  
+  get "/get_items" => "item_taxes#get_items"
+  get "/get_items_price" => "item_taxes#get_items_price"
   
 end
