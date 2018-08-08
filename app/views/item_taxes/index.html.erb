@@ -1,14 +1,20 @@
+<div align="left">
+	<a href="<%= items_path %>">List Item</a>&nbsp;&nbsp;&nbsp;
+	<a href="<%= item_categories_path %>">List Item Category</a>
+</div>&nbsp;&nbsp;&nbsp;
+
 <div align="right">
 	<a href="<%= new_item_tax_path %>">Add Tax</a>
 </div>&nbsp;&nbsp;&nbsp;
 
 <div>
+	<form action="/item_taxes/list" method="post">
 	<% if @item_details != nil && @item_details != [] %>
 		<table border="1" width="100%">
 			<thead><tr>
 				<th>SL.NO</th>
 				<th>Item Category Name</th>
-				<th>Item Name</th>
+				<th><input type="checkbox" id="checkAll" name="checkAll">Item Name</th>
 				<th>Item Price</th>
 				<th>Tax Type</th>
 				<th>Tax Value</th>
@@ -20,7 +26,7 @@
 				<input type="hidden" id="item_id" name="item_id" value="<%=item.id%>">
 				<td><%=index+1%></td>
 				<td><%=Item.find(item.item_id).item_category.name rescue nil%></td>
-				<td><%=Item.find(item.item_id).name rescue nil%></td>
+				<td id="checkValue"><input type="checkbox" id="checkItem" name="selected_item_ids[]" value="<%=item.id%>"/><%=Item.find(item.item_id).name rescue nil%></td>
 				<td><%=Item.find(item.item_id).rate rescue nil%></td>
 				<td><%=item.tax_type%></td>
 				<td><%=item.tax%></td>
@@ -33,10 +39,15 @@
 	<% else %>
 		No Item Taxes available here.
 	<% end %>
+	<%= submit_tag 'Find Total Amount' %>
+	
+	</form>
 </div>
 
 <script type="text/javascript">
-
+$('#checkAll').click(function () {    
+       $('input:checkbox').prop('checked', this.checked);   
+   });
 
 </script>
 

@@ -57,9 +57,14 @@ Rails.application.routes.draw do
   
   resources :item_categories 
 
-  resources :item_taxes
+  resources :item_taxes do
+    collection do
+        post :list
+      end
+  end
   
   get "/get_items" => "item_taxes#get_items"
   get "/get_items_price" => "item_taxes#get_items_price"
+  
   
 end

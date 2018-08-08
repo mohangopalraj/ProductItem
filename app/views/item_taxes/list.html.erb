@@ -1,0 +1,30 @@
+<div>
+	<% if @items!= nil && @items != [] %>
+		<table border="1" width="100%">
+			<thead><tr>
+				<th>SL.NO</th>
+				<th>Item Name</th>
+				<th>Subtotal</th>
+				<th>tax</th>
+				<th>Total Amount
+			</tr></thead>
+			<tbody>
+				<% @items.each_with_index do |item,index| %>
+				<tr>
+				<td><%=index+1%></td>
+				<td><%=Item.find(item.item_id).name%></td>
+				<span><%rate=Item.find(item.item_id).rate%></span>
+				<td><%=rate%></td>
+				<span><%tax_amount=ItemTax.find_tax_amount(rate,item.tax_type,item.tax)%>
+				<td><%=tax_amount%></td>
+				<span><%total_amount=ItemTax.find_total_amount(rate,tax_amount)%></span>
+				<td><%=total_amount%></td>
+				</tr>
+				<% end %>
+			</tbody>
+			</tr>
+		</table>
+	<% else %>
+		No Item Categories available here.
+	<% end %>
+</div>

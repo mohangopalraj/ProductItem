@@ -1,5 +1,6 @@
 class ItemTaxesController < ApplicationController
 
+
 	def index
 		@item_details = ItemTax.all
 	end
@@ -25,8 +26,13 @@ class ItemTaxesController < ApplicationController
 		@price = []
 	end
 
+	def list
+		@items = ItemTax.where(item_id: params[:selected_item_ids])
+	end
+
 	def update
 		@tax_details = ItemTax.find_by_id(params[:id])
+		@tax_details.update_attributes(:item_id => params[:item],:tax_type => params[:type],:tax => params[:value])
 		if @tax_details.save
       		redirect_to :action => 'index'
     	else
