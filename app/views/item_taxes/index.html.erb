@@ -21,7 +21,7 @@
 				<td id="checkValue"><input type="checkbox" id="checkItem" name="selected_item_ids[]" value="<%=item.id%>"/><%=item.name rescue nil%></td>
 				<td><%=item.rate rescue nil%></td>
 				<td><%= link_to "View Tax", item_path(item),target: "_blank"%></td>
-				<td><a href='<%= edit_item_tax_path(item.id)%>'>Edit</a> | <%= link_to "Delete", item_tax_path(item.id), method: :delete,data: { confirm:"Are you sure delete the tax details?" } %> </td>
+				<td><a href='<%= edit_item_path(item.id)%>'>Edit</a> | <%= link_to "Delete", item_path(item.id), method: :delete,data: { confirm:"Are you sure delete the tax details?" } %> </td>
 				</tr>
 				<% end %>
 			</tbody>
