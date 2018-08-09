@@ -13,7 +13,8 @@ class ItemCategoriesController < ApplicationController
     	if @item.save
       		redirect_to :action => 'index'
     	else
-      		render :status=>"Not Updated"
+      		@errors = @item.errors
+      		render :new
     	end
 	end
 

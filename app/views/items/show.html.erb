@@ -1,0 +1,28 @@
+  <div class="field">
+    <b><%= label_tag "Item Category:" %></b><br/>
+    <%= @item.item_category.try(:name)%>
+  </div><br/>
+  <div class="field">
+    <b><%= label_tag "Item Name:" %></b><br/>
+    <%= @item.name %>
+  </div><br/>
+  <div class="field">
+    <b><%= label_tag "Item Rate:" %></b><br/>
+    <%= @item.rate %>
+  </div><br/>
+  <b><%= label_tag "Item Taxes:"%></b>
+  <%if @item.item_taxes.empty?%>
+    <p>No Tax info available</p>
+  <%else%>
+    <% @item.item_taxes.each do |item_tax| %>
+      <div class="field">
+        <b><%= label_tag"Tax Type:" %></b>
+        <%= item_tax.tax_type %>
+      </div><br/>
+      <div class="field">
+        <b><%= label_tag"Tax:" %></b>
+        <%= item_tax.tax %>
+      </div><br/>
+    <% end %><br/>
+  <%end%>
+

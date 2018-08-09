@@ -8,7 +8,9 @@ class ItemsController < ApplicationController
     	if @item.save
       		redirect_to :action => 'index'
     	else
-      		render :status=>"Not Updated"
+    		@errors = @item.errors
+    		@item_tax_errors = @item.item_taxes.last.errors
+      		render :new
     	end
 	end
 
@@ -35,9 +37,13 @@ class ItemsController < ApplicationController
 		redirect_to :action => 'index'
 	end
 
+	def show
+		@item = Item.find_by_id(params[:id])
+	end
+
 	private
 	def item_params
-  		params.require(:item).permit!
+  		params.require(:item).permit(:name,:rate,:item_category_id,item_taxes_attributes: [:id,:tax_type,:tax,:_destroy])
 	end
 
 end

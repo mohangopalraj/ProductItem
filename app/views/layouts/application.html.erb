@@ -7,7 +7,11 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+<div align="left">
+	<a href="<%= items_path %>">Items</a>&nbsp;
+	<a href="<%= item_categories_path %>">Item Categories</a>&nbsp;
+	<a href="<%= item_taxes_path %>">Calculate Tax</a>&nbsp;
+</div>&nbsp;&nbsp;&nbsp;
 <%= yield %>
 
 </body>

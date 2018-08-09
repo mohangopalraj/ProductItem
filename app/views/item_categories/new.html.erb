@@ -2,7 +2,8 @@
 	<%= form_for(@item,:html => {class: 'form-horizontal'}) do  |f| %>
 		<div>
 			<label>Item Category Name:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<%= f.text_field  :name,:value =>f.object.name, :required => true %>
+			<%= f.text_field  :name,:value =>f.object.name %>
+			<span style="color:red"><%= @errors && @errors[:name] && @errors[:name][0]%></span>
 		</div>
 		<br/><br/>
 		<div>

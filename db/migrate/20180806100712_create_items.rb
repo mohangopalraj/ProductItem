@@ -3,7 +3,7 @@ class CreateItems < ActiveRecord::Migration
     create_table :items do |t|
     	t.integer :item_category_id
     	t.string :name
-    	t.string :rate
+    	t.float :rate
       t.timestamps null: false
     end
   end

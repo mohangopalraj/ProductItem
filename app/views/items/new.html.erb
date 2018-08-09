@@ -1,23 +1,42 @@
-<div width="100%">
-  <%= form_for(@item,:html => {class: 'form-horizontal'}) do  |f| %>
-    <div>
-      <label>Item Category Name:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <%= select_tag "item[item_category_id]", options_for_select(ItemCategory.all.collect{ |u| [u.name, u.id] }), :prompt => "Select Item Category"  %>
+<%= form_for(@item,:html => {class: 'form-horizontal'}) do  |item| %>
+  <div class="field">
+    <%= item.label :item_category_id,"Item Category:" %><br />
+    <%= item.select :item_category_id, options_for_select(ItemCategory.all.collect{ |u| [u.name, u.id] }), :prompt => "Select Item Category"%>
+    <span style="color:red"><%= @errors && @errors[:item_category_id] && @errors[:item_category_id][0]%></span>
+  </div><br/>
+  <div class="field">
+    <%= item.label :name,"Item Name:" %><br />
+    <%= item.text_field :name%>
+    <span style="color:red"><%= @errors && @errors[:name] && @errors[:name][0]%></span>
+  </div><br/>
+  <div class="field">
+    <%= item.label :name,"Rate:" %><br />
+    <%= item.text_field :rate%>
+    <span style="color:red"><%= @errors && @errors[:rate] && @errors[:rate][0]%></span>
+  </div><br/>
+  <%= item.fields_for :item_taxes do |item_tax| %>
+    <%= render 'item_tax_fields', item_tax: item_tax%>
+  <% end %><br/>
+  <%= link_to_add_fields 'Add Item Tax:', item,:item_taxes%><br/><br/>
+  <%= item.submit "Submit", class: 'btn btn-theme02'  %>
+<%end%>
+<script type="text/javascript">
+  //function to add tax
+  $("[data-form-prepend]").click(function(e) {
+    var obj = $($(this).attr("data-form-prepend"));
+    obj.find("input, select, textarea").each(function() {
+      $(this).attr("name", function() {
+        return $(this).attr("name").replace("new_record", new Date().getTime());
+      });
+    });
+    obj.insertBefore(this);
+    return false;
+  });
 
-    </div><br/>
-    <div>
-      <label>Item Name:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <%= f.text_field  :name, :required => true %>
-    </div><br/>
-    
-    <div>
-      <label>Price Rate:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      &nbsp;&nbsp;<%= f.text_field  :rate, :required => true %>
-    </div><br/>
-
-    <div>
-    <%= f.submit "Submit", class: 'btn btn-theme02'  %>
-    </div>
-                    
-  <%end%>
-</div>
+  //Function to remove tax
+  $('form').on('click', '.remove_fields', function(event) {
+    $(this).prev('input[type=hidden]').val('1');
+    $(this).closest('fieldset').hide();
+    return event.preventDefault();
+  });
+</script>

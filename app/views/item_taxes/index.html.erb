@@ -1,46 +1,34 @@
-<div align="left">
-	<a href="<%= items_path %>">List Item</a>&nbsp;&nbsp;&nbsp;
-	<a href="<%= item_categories_path %>">List Item Category</a>
-</div>&nbsp;&nbsp;&nbsp;
-
-<div align="right">
-	<a href="<%= new_item_tax_path %>">Add Tax</a>
-</div>&nbsp;&nbsp;&nbsp;
-
 <div>
 	<form action="/item_taxes/list" method="post">
-	<% if @item_details != nil && @item_details != [] %>
+	<% if @items.empty?  %>
+		<p>No items Available</p>
+	<%else%>
 		<table border="1" width="100%">
 			<thead><tr>
-				<th>SL.NO</th>
+				<th>S.no</th>
 				<th>Item Category Name</th>
 				<th><input type="checkbox" id="checkAll" name="checkAll">Item Name</th>
 				<th>Item Price</th>
-				<th>Tax Type</th>
-				<th>Tax Value</th>
+				<th>Action</th>
 				<th>Action</th>
 			</tr></thead>
 			<tbody>
-				<% @item_details.each_with_index do |item,index| %>
+				<% @items.each_with_index do |item,index| %>
 				<tr>
 				<input type="hidden" id="item_id" name="item_id" value="<%=item.id%>">
 				<td><%=index+1%></td>
-				<td><%=Item.find(item.item_id).item_category.name rescue nil%></td>
-				<td id="checkValue"><input type="checkbox" id="checkItem" name="selected_item_ids[]" value="<%=item.id%>"/><%=Item.find(item.item_id).name rescue nil%></td>
-				<td><%=Item.find(item.item_id).rate rescue nil%></td>
-				<td><%=item.tax_type%></td>
-				<td><%=item.tax%></td>
+				<td><%=item.item_category.name rescue nil%></td>
+				<td id="checkValue"><input type="checkbox" id="checkItem" name="selected_item_ids[]" value="<%=item.id%>"/><%=item.name rescue nil%></td>
+				<td><%=item.rate rescue nil%></td>
+				<td><%= link_to "View Tax", item_path(item),target: "_blank"%></td>
 				<td><a href='<%= edit_item_tax_path(item.id)%>'>Edit</a> | <%= link_to "Delete", item_tax_path(item.id), method: :delete,data: { confirm:"Are you sure delete the tax details?" } %> </td>
 				</tr>
 				<% end %>
 			</tbody>
 			</tr>
 		</table>
-	<% else %>
-		No Item Taxes available here.
+		<%= submit_tag 'Find Total Amount',style: "margin: 10px;margin-left: 535px;" %>
 	<% end %>
-	<%= submit_tag 'Find Total Amount' %>
-	
 	</form>
 </div>
 

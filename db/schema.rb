@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180806104040) do
+ActiveRecord::Schema.define(version: 20180806100807) do
 
   create_table "item_categories", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -22,17 +22,17 @@ ActiveRecord::Schema.define(version: 20180806104040) do
   create_table "item_taxes", force: :cascade do |t|
     t.integer  "item_id",    limit: 4
     t.string   "tax_type",   limit: 255
-    t.string   "tax",        limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.decimal  "tax",                    precision: 10
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
   end
 
   create_table "items", force: :cascade do |t|
     t.integer  "item_category_id", limit: 4
     t.string   "name",             limit: 255
-    t.string   "rate",             limit: 255
+    t.float    "rate",             limit: 24
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
   end
-  
+
 end

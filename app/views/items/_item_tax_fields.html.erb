@@ -1,0 +1,16 @@
+</br>
+<div>
+	<div class="field">
+		<%= item_tax.label :tax_type,"Tax Type:" %>
+		<%= item_tax.select :tax_type,options_for_select([["Percentage","percentage"],["Value","value"]],selected: item_tax.object && item_tax.object.tax_type),prompt: "Select a tax type" %>
+		<span style="color:red"><%= @item_tax_errors && @item_tax_errors[:tax_type] && @item_tax_errors[:tax_type][0]%></span>
+	</div><br/>
+	<div class="field">
+		<%= item_tax.label :tax,"Tax:" %>
+		<%= item_tax.text_field :tax%>
+	<span style="color:red"><%= @item_tax_errors && @item_tax_errors[:tax] && @item_tax_errors[:tax][0]%></span>
+	</div><br/>
+	<%= item_tax.check_box :_destroy%>
+	<%= item_tax.label :delete%>
+</div>
+<br/>

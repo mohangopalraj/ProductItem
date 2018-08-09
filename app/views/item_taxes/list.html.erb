@@ -1,30 +1,57 @@
 <div>
-	<% if @items!= nil && @items != [] %>
+	<% if @items.empty? %>
+	<p>No Items available</p>
+	<%else%>
 		<table border="1" width="100%">
-			<thead><tr>
-				<th>SL.NO</th>
-				<th>Item Name</th>
-				<th>Subtotal</th>
-				<th>tax</th>
-				<th>Total Amount
-			</tr></thead>
-			<tbody>
-				<% @items.each_with_index do |item,index| %>
+			<thead>
 				<tr>
-				<td><%=index+1%></td>
-				<td><%=Item.find(item.item_id).name%></td>
-				<span><%rate=Item.find(item.item_id).rate%></span>
-				<td><%=rate%></td>
-				<span><%tax_amount=ItemTax.find_tax_amount(rate,item.tax_type,item.tax)%>
-				<td><%=tax_amount%></td>
-				<span><%total_amount=ItemTax.find_total_amount(rate,tax_amount)%></span>
-				<td><%=total_amount%></td>
+					<th>S.no</th>
+					<th>Item Category</th>
+					<th>Item Name</th>
+					<th>Rate Info</th>
+					<th>Tax Info</th>
+					<th>Final Amount(Rate+Tax)</th>
 				</tr>
+			</thead>
+			<tbody>
+				<%@tax_amount,@total_amount = 0,0%>
+				<% @items.each_with_index do |item,index| %>
+					
+					<tr>
+						<td><%=index+1%></td>
+						<td><%=item.item_category.name%></td>
+						<td><%=item.name%></td>
+						<td><%=item.rate%></td>
+						<td><%=@tax_amount+=item.find_tax_details%></td>
+						<td><%=@total_amount+=item.find_final_amount_inclusive_of_tax%></td>
+					</tr>
 				<% end %>
+				<tr>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th>SubTotal</th>
+					<th><%= @items.pluck(:rate).sum%></th>
+				</tr>
+				<tr>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th>Tax</th>
+					<th><%= @tax_amount%></th>
+				</tr>
+				<tr>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th>Total Amount</th>
+					<th><%= @total_amount%></th>
+				</tr>
 			</tbody>
 			</tr>
 		</table>
-	<% else %>
-		No Item Categories available here.
 	<% end %>
 </div>

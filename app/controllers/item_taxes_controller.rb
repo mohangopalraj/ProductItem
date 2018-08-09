@@ -2,7 +2,7 @@ class ItemTaxesController < ApplicationController
 
 
 	def index
-		@item_details = ItemTax.all
+		@items = Item.all
 	end
 
 	def new
@@ -16,7 +16,8 @@ class ItemTaxesController < ApplicationController
     	if @item.save
       		redirect_to :action => 'index'
     	else
-      		render :status=>"Not Updated"
+      		@errors = @item.errors
+      		render :new
     	end
 	end
 
@@ -27,7 +28,7 @@ class ItemTaxesController < ApplicationController
 	end
 
 	def list
-		@items = ItemTax.where(item_id: params[:selected_item_ids])
+		@items = Item.where(id: params[:selected_item_ids])
 	end
 
 	def update
@@ -56,6 +57,11 @@ class ItemTaxesController < ApplicationController
 		item = ItemTax.find_by_id(params[:id])
 		item.destroy
 		redirect_to :action => 'index'
+	end
+
+	private
+	def item_tax_params
+		params.require(:item_tax)
 	end
 	
 end
