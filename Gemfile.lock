@@ -150,6 +150,7 @@ GEM
 
 PLATFORMS
   ruby
+  unknown
 
 DEPENDENCIES
   coffee-rails (~> 4.1.0)
